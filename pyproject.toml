@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skifer-engine"
+version = "0.1.0.dev0"
+description = "Skifer runtime for Spark and Databricks: SkiferEngine, Python rules, Delta writes, streaming tables, materialized views."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Julien Houbart", email = "houbartjulien80@gmail.com" }]
+keywords = ["skifer", "spark", "pyspark", "databricks", "delta-lake", "data-engineering", "declarative", "yaml"]
+requires-python = ">=3.10"
+# The runtime code still lives in skifer (src/skifer/core/core.py, spark_backend.py,
+# rule_executor.py, loaders.py, writer.py, spark_factory.py). It migrates here at
+# the multi-wheel cut; until then this distribution is a reserved name and a
+# skeleton. The core dependency becomes "skifer-core>=X" at the same time.
+dependencies = [
+    "skifer>=4.1.0",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "Topic :: Database",
+]
+
+[project.urls]
+Homepage = "https://github.com/morzu117/skifer-engine"
+Repository = "https://github.com/morzu117/skifer-engine"
+Changelog = "https://github.com/morzu117/skifer-engine/blob/main/CHANGELOG.md"
+"Skifer" = "https://github.com/morzu117/skifer"
+
+[project.optional-dependencies]
+# Spark stays optional on purpose: a Databricks runtime already ships pyspark.
+spark = [
+    "pyspark>=3.3.0",
+    "delta-spark>=2.0.0",
+]
+databricks = [
+    "databricks-sdk>=0.20.0",
+]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

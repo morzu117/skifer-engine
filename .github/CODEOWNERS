@@ -1,0 +1,3 @@
+# Default owner for everything. Add a connector owner line below as the
+# repository gets its own maintainer; Julien keeps review on the core contract.
+* @morzu117
